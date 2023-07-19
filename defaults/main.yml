@@ -1,0 +1,4 @@
+---
+lighthouse_dir: "/etc/lighthouse"
+lighthouse_port: "80"
+nginx_user_name: "root"
