@@ -1,0 +1,30 @@
+---
+- name: install EPEL repo
+  become: yes
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+  tags:
+  - lighthouse
+  - nginx
+
+- name: Installing Nginx
+  become: true
+  ansible.builtin.yum:
+    name: nginx
+    state: present
+  notify: Service start nginx
+  tags:
+  - lighthouse
+  - nginx
+
+- name: Nginx config
+  become: true
+  ansible.builtin.template:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    mode: '644'
+  notify: Reload nginx
+  tags:
+  - lighthouse
+  - nginx
